@@ -44,7 +44,7 @@ class AdminController extends Controller
                     ]);
                 break;
                 case 'showCategory':
-                    $id = $_GET['id'];
+                    $id = $get['id'];
                     $category = Category::getInstanse($id);
                     $goods = GoodsCategory::getGoods($id);
                     $this->render('admin/showCategory.php',[

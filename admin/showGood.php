@@ -33,5 +33,4 @@ foreach($categoryList as $value){
 }
 print "</select><input type=\"hidden\" name=\"good_id\" value =\"$goodData[id]\"><button name =\"act\" value=\"addCategory2Good\">добавить</button></form>";
 print "</table>";
-print "<form method = \"post\" action = \"admin.php\"><button name = \"act\" value = \"close\">Закрыть</button></form>";
 print "</div>";

@@ -10,5 +10,4 @@ foreach($goods as $value){
     print "<a href=\"index.php?act=showGood&id=$value[id]\">$value[name]</a>, ";
 }
 print "<br>";
-
 print "</div>";

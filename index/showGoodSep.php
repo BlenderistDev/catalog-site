@@ -18,5 +18,4 @@ foreach($categories as $value){
 }
 print "<br>";
 print "<a href=index.php>закрыть</a>";
-
 print "</div>";
