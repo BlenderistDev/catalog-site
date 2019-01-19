@@ -1,0 +1,6 @@
+{
+  "root":"root",
+  "root_password":"",
+  "host":"localhost",
+  "dbName":"catalog-site"
+}
