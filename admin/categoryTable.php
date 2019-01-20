@@ -1,9 +1,10 @@
 <?php
 // $categoryData - массив данных категорий
 // $categoryPageCount - количество страниц
-print "<span class=\"categoryTable\">";
+
 $button = "<form method = \"post\" action = \"admin.php\"><button name=\"act\" value=\"addCategory\">+</button></form>";
-print "<table><thead><td>id</td><td>Название</td><td>Описание</td><td>Активность</td><td>$button</td></thead>";
+print "<span class=\"categoryTable\">
+    <table><thead><td>id</td><td>Название</td><td>Описание</td><td>Активность</td><td>$button</td></thead>";
 $foot = "<form method=\"get\" action =\"admin.php\">";
 for ($i=1;$i<$categoryPageCount+1;$i++){
     $foot.="<button name=\"categoryPage\" value=\"$i\">$i</button>";
@@ -24,6 +25,4 @@ foreach ($categoryData as $key => $value){
     </tr>
 _HTML_;
 }
-print "</table>";
-print $foot;
-print "</span>";
+print "</table>$foot</span>";

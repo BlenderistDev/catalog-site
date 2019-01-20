@@ -1,5 +1,3 @@
-<!-- $errors - массив ошибок -->
-<!-- $data - массив данных по категории для автозаполнения -->
 <div class = "categoryEdit">
     <form method = "post" action = "admin.php">
         <table>
@@ -11,11 +9,13 @@
         </table>
         <input type ="hidden" name = "id" value = "<?=$data['id']?>">
     </form>
-    <?php
-    if($errors!==[]){
-        foreach($errors as $value){
-            print "$value<br>";
-        }
+<?php
+// $errors - массив ошибок
+// $data - массив данных по категории для автозаполнения
+if($errors!==[]){
+    foreach($errors as $value){
+        print "$value<br>";
     }
+}
 ?>
 </div>

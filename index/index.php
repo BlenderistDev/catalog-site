@@ -1,19 +1,25 @@
+
+<!-- css файл -->
+<link rel='stylesheet' type='text/css' href='admin.css' />
 <?php
-// css файл
-print "<link rel='stylesheet' type='text/css' href='admin.css' />";
 // таблица товаров
 $this->render('header.php');
-print "<div class = \"content\">";
-print "<div class = \"tables\">";
+?>
+<div class = "content">
+<div class = "tables">
+<?php
 $this->render('index/goodsTable.php',[
     'goodsData'=>$goodsData,
     'goodsPageCount' => $goodsPageCount,
 ]);
+?>
+<br>
+<?php
 // таблица категорий
-print "<br>";
 $this->render('index/categoryTable.php',[
     'categoryData'=>$categoryData,
     'categoryPageCount' => $categoryPageCount,
 ]);
-print("</div>");
+?>
+</div>
 

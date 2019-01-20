@@ -1,4 +1,3 @@
-<!-- $errors - массив ошибок -->
 <div class = "goodsAdd">
     <form method = "post" action = "admin.php">
         <table>
@@ -12,10 +11,11 @@
 
     </form>
 <?php
-    if($errors!==[]){
-        foreach($errors as $value){
-            print "$value<br>";
-        }
+// $errors - массив ошибок
+if($errors!==[]){
+    foreach($errors as $value){
+        print "$value<br>";
     }
+}
 ?>
 </div>

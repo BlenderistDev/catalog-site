@@ -1,9 +1,9 @@
 <?php
 // $categoryData - массив данных товаров
 // $categoryPageCount - количество страниц
-print "<span class = \"goodsTable\">";
 $button = "<form method = \"post\" action = \"admin.php\"><button name=\"act\" value=\"addGoods\">+</button></form>";
-print "<table><thead><td>id</td><td>Название</td><td>Описание</td><td>Активность</td><td>Количество</td><td>Заказ</td><td>$button</td></thead>";
+print "<span class = \"goodsTable\">
+    <table><thead><td>id</td><td>Название</td><td>Описание</td><td>Активность</td><td>Количество</td><td>Заказ</td><td>$button</td></thead>";
 $foot = "<form method=\"get\" action =\"admin.php\">";
 for ($i=1;$i<$goodsPageCount+1;$i++){
     $foot.="<button name=\"goodsPage\" value=\"$i\">$i</button>";
@@ -26,7 +26,6 @@ foreach ($goodsData as $key => $value){
     </tr>
 _HTML_;
 }
-print "</table>";
-print $foot;
-print "<form method=\"get\" action =\"admin.php\"><button name = \"active\" value = \"true\">Только активные</button><button name = \"active\" value = \"false\">все</button></form>";
-print "</span>";
+print "</table> $foot 
+    <form method=\"get\" action =\"admin.php\"><button name = \"active\" value = \"true\">Только активные</button><button name = \"active\" value = \"false\">все</button></form>
+    </span>";

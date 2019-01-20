@@ -1,4 +1,3 @@
-<!-- $errors - массив ошибок -->
 <div class = "categoryAdd">
     <form method = "post" action = "admin.php">
         <table>
@@ -9,11 +8,12 @@
             <tr><td>Активность:</td><td><input type="text" name = "activity"></td></tr>
         </table>
     </form>
-    <?php
-    if($errors!==[]){
-        foreach($errors as $value){
-            print "$value<br>";
-        }
+<?php
+// $errors - массив ошибок
+if($errors!==[]){
+    foreach($errors as $value){
+        print "$value<br>";
     }
+}
 ?>
 </div>

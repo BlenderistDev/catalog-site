@@ -1,8 +1,8 @@
+<div class="categoryTable">
+<table><thead><td>id</td><td>Название</td><td>Описание</td></thead>
 <?php
 // $categoryData - массив данных категорий
 // $categoryPageCount - количество страниц
-print "<div class=\"categoryTable\">";
-print "<table><thead><td>id</td><td>Название</td><td>Описание</td></thead>";
 $foot = "<form method=\"get\" action =\"index.php\">";
 for ($i=1;$i<$categoryPageCount+1;$i++){
     $foot.="<button name=\"categoryPage\" value=\"$i\">$i</button>";
@@ -16,6 +16,8 @@ foreach ($categoryData as $key => $value){
     </tr>
 _HTML_;
 }
-print "</table>";
-print $foot;
-print "</div>";
+print<<<_HTML_
+ </table>
+$foot
+</div>
+_HTML_;

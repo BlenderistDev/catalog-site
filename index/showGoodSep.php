@@ -16,6 +16,7 @@ _HTML_;
 foreach($categories as $value){
     print "<a href=\"index.php?act=showCategory&id=$value[id]\">$value[name]</a>, ";
 }
-print "<br>";
-print "<a href=index.php>закрыть</a>";
-print "</div>";
+?>
+<br>
+<a href=index.php>закрыть</a>
+</div>

@@ -25,12 +25,14 @@ foreach($categories as $value){
     </td>
     </tr>";
 }
-print "<br>";
-
-print "<form  method = \"post\" action = \"admin.php\"><select name =\"category_id\">";
+?>
+<br>
+<form  method = "post" action = "admin.php"><select name ="category_id">
+<?php
 foreach($categoryList as $value){
     print "<option value =\"$value[id]\">$value[name]</option>";
 }
-print "</select><input type=\"hidden\" name=\"good_id\" value =\"$goodData[id]\"><button name =\"act\" value=\"addCategory2Good\">добавить</button></form>";
-print "</table>";
-print "</div>";
+?>
+</select><input type="hidden" name="good_id" value ="$goodData[id]"><button name ="act" value="addCategory2Good">добавить</button></form>
+</table>
+</div>
