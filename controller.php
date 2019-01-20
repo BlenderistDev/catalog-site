@@ -29,25 +29,25 @@ abstract class Controller{
         return [$data,$pageCount];
     }
     //получение get параметров предыдущего запроса
-    protected function checkGet()
-    {
-        $oldget =[];
-        if(isset($_SERVER['HTTP_REFERER'])){
-            $getStr = parse_url($_SERVER['HTTP_REFERER']);
-            if (isset($getStr['query'])){
-                if(strpos($getStr['query'],"&"))
-                    $getStr = explode("&",$getStr['query']);
-                else{
-                    $getStr=[$getStr['query']];
-                }
-                for ($i=0; $i<count($getStr); $i++){
-                    $newold = explode("=",$getStr[$i]);
-                    $oldget[$newold[0]]=$newold[1];
-                }
-            }
-        }
-        return $oldget;
-    }
+    // protected function checkGet()
+    // {
+    //     // $oldget =[];
+    //     // if(isset($_SERVER['HTTP_REFERER'])){
+    //     //     $getStr = parse_url($_SERVER['HTTP_REFERER']);
+    //     //     if (isset($getStr['query'])){
+    //     //         if(strpos($getStr['query'],"&"))
+    //     //             $getStr = explode("&",$getStr['query']);
+    //     //         else{
+    //     //             $getStr=[$getStr['query']];
+    //     //         }
+    //     //         for ($i=0; $i<count($getStr); $i++){
+    //     //             $newold = explode("=",$getStr[$i]);
+    //     //             $oldget[$newold[0]]=$newold[1];
+    //     //         }
+    //     //     }
+    //     // }
+    //     // return $oldget;
+    // }
     //кнопка закрыть
     public function close()
     {

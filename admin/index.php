@@ -1,11 +1,11 @@
 <!-- css файл -->
-<link rel='stylesheet' type='text/css' href='admin.css' />
+<link rel='stylesheet' type='text/css' href='admin.css'/>
 <?php
 // таблица товаров
 $this->render('header.php');
 ?>
-<div class = "content">;
-<div class = "tables">;
+<div class = "content">
+<div class = "tables">
 <?php
 $this->render('admin/goodsTable.php',[
     'goodsData'=>$goodsData,

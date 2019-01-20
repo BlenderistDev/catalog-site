@@ -33,6 +33,6 @@ foreach($categoryList as $value){
     print "<option value =\"$value[id]\">$value[name]</option>";
 }
 ?>
-</select><input type="hidden" name="good_id" value ="$goodData[id]"><button name ="act" value="addCategory2Good">добавить</button></form>
+</select><input type="hidden" name="good_id" value ="<?=$goodData['id']?>"><button name ="act" value="addCategory2Good">добавить</button></form>
 </table>
 </div>

@@ -9,35 +9,71 @@ body{
     width: 1000px;
     height: 100%;
     background-color: bisque;
+    border: 1px solid;
 }
 
 
 .header{
     height: 40px;
     background-color: burlywood;
+    border-bottom: 1px solid;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .goodsAdd{
-    float: right;
-    width: auto;
-    margin: 20px;
+    background-color: rgb(235, 178, 104);
+    width: 300px;
+    height: 250px;
+    padding: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    border-radius-: 15px;
 }
 
 .goodsEdit{
-    float: right;
-    width: auto;
-    margin: 20px;
+    background-color: rgb(235, 178, 104);
+    width: 300px;
+    height: 250px;
+    padding: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    border-radius: 15px;
 }
 .categoryAdd{
-    float: right;
-    width: auto;
-    margin: 20px;
+    background-color: rgb(235, 178, 104);
+    width: 300px;
+    height: 180px;
+    padding: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    border-radius: 15px;
 }
 
 .categoryEdit{
-    float: right;
-    width: auto;
-    margin: 20px;
+    background-color: rgb(235, 178, 104);
+    width: 300px;
+    height: 180px;
+    padding: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    border-radius: 15px;
 }
 .showGood{
     float: right;

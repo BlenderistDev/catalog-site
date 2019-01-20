@@ -58,7 +58,7 @@ class AdminController extends Controller
     // форма добавления товара
     public function addGoods($errors = [])
     {
-        $this->index($this->checkGet());
+        $this->index();
         $this->render('admin/goodsAdd.php',[
             'errors'=>$errors,
         ]);
@@ -71,14 +71,14 @@ class AdminController extends Controller
             $this->addGoods($errors);
         }
         else{
-            $this->index($this->checkGet());
+            $this->index();
         }
     }
     //форма изменения товара
     public function EditGoods($errors = [])
     {
         $post = $_POST;
-        $this->index($this->checkGet());
+        $this->index();
         $this->render('admin/goodsEdit.php',[
             'data'=>$post,
             'errors'=>$errors,
@@ -92,13 +92,13 @@ class AdminController extends Controller
             $this->editGoods($errors);
         }
         else{
-            $this->index($this->checkGet());
+            $this->index();
         }
     }
     // форма добавления категории
     public function addCategory($errors = [])
     {
-        $this->index($this->checkGet());
+        $this->index();
         $this->render('admin/categoryAdd.php',[
             'errors'=>$errors,
         ]);
@@ -111,14 +111,14 @@ class AdminController extends Controller
             $this->addCategory($errors);
         }
         else{
-            $this->index($this->checkGet());
+            $this->index();
         }
     }
     // форма изменения категории
     public function EditCategories($errors = [])
     {
         $post = $_POST;
-        $this->index($this->checkGet());
+        $this->index();
         $this->render('admin/categoryEdit.php',[
             'data'=>$post,
             'errors'=>$errors,
@@ -132,7 +132,7 @@ class AdminController extends Controller
             $this->EditCategories($errors);
         }
         else{
-            $this->index($this->checkGet());
+            $this->index();
         }
     }
     // удаление категории товара
@@ -140,14 +140,16 @@ class AdminController extends Controller
     {
         $post = $_POST;
         GoodsCategory::del($post['good_id'],$post['category_id']);
-        $this->index($this->checkGet());
+        header("location: $_SERVER[HTTP_REFERER]");
+        // $this->index($this->checkGet());
     }
     // добавление категории товара
     public function addCategory2Good()
     {
         $post = $_POST;
         GoodsCategory::add($post);
-        $this->index($this->checkGet());
+        header("location: $_SERVER[HTTP_REFERER]");
+        // $this->index($this->checkGet());
     }
 
 }
