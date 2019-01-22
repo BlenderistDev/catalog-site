@@ -28,31 +28,32 @@ abstract class Controller{
         $data=array_splice($data,$page*$count-$count,$count);
         return [$data,$pageCount];
     }
-    //получение get параметров предыдущего запроса
-    // protected function checkGet()
-    // {
-    //     // $oldget =[];
-    //     // if(isset($_SERVER['HTTP_REFERER'])){
-    //     //     $getStr = parse_url($_SERVER['HTTP_REFERER']);
-    //     //     if (isset($getStr['query'])){
-    //     //         if(strpos($getStr['query'],"&"))
-    //     //             $getStr = explode("&",$getStr['query']);
-    //     //         else{
-    //     //             $getStr=[$getStr['query']];
-    //     //         }
-    //     //         for ($i=0; $i<count($getStr); $i++){
-    //     //             $newold = explode("=",$getStr[$i]);
-    //     //             $oldget[$newold[0]]=$newold[1];
-    //     //         }
-    //     //     }
-    //     // }
-    //     // return $oldget;
-    // }
     //кнопка закрыть
     public function close()
     {
         header("location: $_SERVER[REQUEST_URI]");
     }
-    abstract public function index($get);
+    abstract public function index();
+
+    // установка get-значений по умолчанию
+    protected function getGet(){
+        $get = [];
+        foreach($_GET as $key => $value){
+            $get[$key]=$value;
+        }
+        // если страница товаров не выбрана, ставим первую
+        if (!isset($get[self::GOODS_PAGE_PROPERTY])){
+            $get[self::GOODS_PAGE_PROPERTY] = 1;
+        }
+        // если страница категорий не выбрана, ставим первую
+        if (!isset($get[self::CATEGORY_PAGE_PROPERTY])){
+            $get[self::CATEGORY_PAGE_PROPERTY] = 1;
+        }
+        // по умолчанию показываем все товары
+        if (!isset($get['active'])){
+            $get['active'] = false;
+        }
+        return $get;
+    }
 
 }

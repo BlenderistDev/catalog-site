@@ -4,25 +4,27 @@ require_once("controller.php");
 require_once("goods.php");
 require_once("category.php");
 require_once("goodsCategory.php");
+require_once("paginator.php");
 
 class AdminController extends Controller
 {
-    public function index($get = [])
+    public function index()
     {
-        //получение get параметров предыдущего запроса
-        if ($get === []){
-            $get = $_GET;
-        }
+        $get = self::getGet($_GET);
         //данные по товарам
-        if (isset($get['active']) && ($get['active']==='true')){//проверяем условие о показе только активных товаров
+        if ($get['active']==='true'){//проверяем условие о показе только активных товаров
             $goodsData = Goods::getActiveData();
         }else{
             $goodsData = Goods::getData();
         }
-        list($goodsData,$goodsPageCount)=$this->getPagination($goodsData,self::$goodsPagination,self::GOODS_PAGE_PROPERTY);
+        $goodsData = new Paginator($goodsData,self::$goodsPagination);
+        $goodsPageCount = $goodsData->getPageCount();
+        $goodsData = $goodsData->getPage($get['goodsPage']);
         //данные по категориям
         $categoryData = Category::getData();
-        list($categoryData,$categoryPageCount)=$this->getPagination($categoryData,self::$categoryPagination,self::CATEGORY_PAGE_PROPERTY);
+        $categoryData = new Paginator($categoryData,self::$categoryPagination);
+        $categoryPageCount = $categoryData->getPageCount();
+        $categoryData = $categoryData->getPage($get['categoryPage']);
         //рендерим страницу
         $this->render('admin/index.php',[
             'goodsPageCount' => $goodsPageCount,

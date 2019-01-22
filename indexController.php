@@ -4,21 +4,24 @@ require_once("controller.php");
 require_once("goods.php");
 require_once("category.php");
 require_once("goodsCategory.php");
+require_once("paginator.php");
 
 class IndexController extends Controller
 {
  
-    public function index($get = []){
-        //получение get параметров предыдущего запроса
-        if ($get === []){
-            $get = $_GET;
-        }
+    public function index()
+    {
+        $get = self::getGet($_GET);
         //данные по товарам
         $goodsData = Goods::getActiveData();
-        list($goodsData,$goodsPageCount)=$this->getPagination($goodsData,self::$goodsPagination,self::GOODS_PAGE_PROPERTY);
+        $goodsData = new Paginator($goodsData,self::$goodsPagination);
+        $goodsPageCount = $goodsData->getPageCount();
+        $goodsData = $goodsData->getPage($get['goodsPage']);
         //данные по категориям
         $categoryData = Category::getActiveData();
-        list($categoryData,$categoryPageCount)=$this->getPagination($categoryData,self::$categoryPagination,self::CATEGORY_PAGE_PROPERTY);
+        $categoryData = new Paginator($categoryData,self::$categoryPagination);
+        $categoryPageCount = $categoryData->getPageCount();
+        $categoryData = $categoryData->getPage($get['categoryPage']);
         //рендерим страницу
         $this->render('index/index.php',[
             'goodsPageCount' => $goodsPageCount,
