@@ -1,10 +1,10 @@
 <?php
 
-require_once("controller.php");
-require_once("goods.php");
-require_once("category.php");
-require_once("goodsCategory.php");
-require_once("paginator.php");
+require_once("controller\controller.php");
+require_once("model\goods.php");
+require_once("model\category.php");
+require_once("model\goodsCategory.php");
+require_once("helper\paginator.php");
 
 class IndexController extends Controller
 {
@@ -23,7 +23,7 @@ class IndexController extends Controller
         $categoryPageCount = $categoryData->getPageCount();
         $categoryData = $categoryData->getPage($get['categoryPage']);
         //рендерим страницу
-        $this->render('index/index.php',[
+        $this->render('index',[
             'goodsPageCount' => $goodsPageCount,
             'goodsData'=>$goodsData,
             'categoryPageCount' => $categoryPageCount,
@@ -36,7 +36,7 @@ class IndexController extends Controller
                 $id = $_GET['id'];
                 $good = Goods::getInstanse($id);
                 $categories = GoodsCategory::getCategories($id);
-                $this->render('index/showGood.php',[
+                $this->render('showGood',[
                     'goodData' => $good,
                     'categories'=>$categories,
                 ]);
@@ -45,7 +45,7 @@ class IndexController extends Controller
                 $id = $_GET['id'];
                 $category = Category::getInstanse($id);
                 $goods = GoodsCategory::getGoods($id);
-                $this->render('index/showCategory.php',[
+                $this->render('showCategory',[
                     'CategoryData' => $category,
                     'goods'=>$goods,
                 ]);
@@ -64,10 +64,14 @@ class IndexController extends Controller
         }
         else{
             $categories = GoodsCategory::getCategories($id);
-            $this->render('index/showGoodSep.php',[
+            $this->render('showGoodSep',[
                 'goodData' => $good,
                 'categories'=>$categories,
             ]);
         }
+    }
+    static protected function getControllerName()
+    {
+        return "index";
     }
 }

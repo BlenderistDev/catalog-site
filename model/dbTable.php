@@ -1,6 +1,6 @@
 <?php
 
-require_once("database.php");
+require_once("model\database.php");
 // верхний уровень абстракции таблиц в базе данных
 abstract class Table
 {

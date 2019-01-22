@@ -1,6 +1,6 @@
 <?php
 
-require_once("dbTable.php");
+require_once("model\dbTable.php");
 // абстракция для таблиц - каталогов
 abstract class Catalog extends Table
 {

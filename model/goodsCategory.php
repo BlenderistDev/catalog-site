@@ -1,8 +1,8 @@
 <?php
 
-require_once("goods.php");
-require_once("category.php");
-require_once("dbTable.php");
+require_once("model\goods.php");
+require_once("model\category.php");
+require_once("model\dbTable.php");
 
 class GoodsCategory extends Table
 {

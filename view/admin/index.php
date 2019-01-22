@@ -1,13 +1,10 @@
 <!-- css файл -->
 <link rel='stylesheet' type='text/css' href='admin.css'/>
-<?php
-// таблица товаров
-$this->render('header.php');
-?>
 <div class = "content">
 <div class = "tables">
 <?php
-$this->render('admin/goodsTable.php',[
+// таблица товаров
+$this->render('goodsTable',[
     'goodsData'=>$goodsData,
     'goodsPageCount' => $goodsPageCount,
 ]);
@@ -15,7 +12,7 @@ $this->render('admin/goodsTable.php',[
 <!-- таблица категорий -->
 <br>
 <?php
-$this->render('admin/categoryTable.php',[
+$this->render('categoryTable',[
     'categoryData'=>$categoryData,
     'categoryPageCount' => $categoryPageCount,
 ]);

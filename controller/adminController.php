@@ -1,10 +1,10 @@
 <?php
 
-require_once("controller.php");
-require_once("goods.php");
-require_once("category.php");
-require_once("goodsCategory.php");
-require_once("paginator.php");
+require_once("controller\controller.php");
+require_once("model\goods.php");
+require_once("model\category.php");
+require_once("model\goodsCategory.php");
+require_once("helper\paginator.php");
 
 class AdminController extends Controller
 {
@@ -26,7 +26,7 @@ class AdminController extends Controller
         $categoryPageCount = $categoryData->getPageCount();
         $categoryData = $categoryData->getPage($get['categoryPage']);
         //рендерим страницу
-        $this->render('admin/index.php',[
+        $this->render('index',[
             'goodsPageCount' => $goodsPageCount,
             'goodsData'=>$goodsData,
             'categoryPageCount' => $categoryPageCount,
@@ -39,7 +39,7 @@ class AdminController extends Controller
                     $id = $get['id'];
                     $good = Goods::getInstanse($id);
                     $categories = GoodsCategory::getCategories($id);
-                    $this->render('admin/showGood.php',[
+                    $this->render('showGood',[
                         'goodData' => $good,
                         'categories'=>$categories,
                         'categoryList'=>Category::getList(),
@@ -49,7 +49,7 @@ class AdminController extends Controller
                     $id = $get['id'];
                     $category = Category::getInstanse($id);
                     $goods = GoodsCategory::getGoods($id);
-                    $this->render('admin/showCategory.php',[
+                    $this->render('showCategory',[
                         'CategoryData' => $category,
                         'goods'=>$goods,
                     ]);
@@ -61,7 +61,7 @@ class AdminController extends Controller
     public function addGoods($errors = [])
     {
         $this->index();
-        $this->render('admin/goodsAdd.php',[
+        $this->render('goodsAdd',[
             'errors'=>$errors,
         ]);
     }
@@ -81,7 +81,7 @@ class AdminController extends Controller
     {
         $post = $_POST;
         $this->index();
-        $this->render('admin/goodsEdit.php',[
+        $this->render('goodsEdit',[
             'data'=>$post,
             'errors'=>$errors,
         ]);
@@ -101,7 +101,7 @@ class AdminController extends Controller
     public function addCategory($errors = [])
     {
         $this->index();
-        $this->render('admin/categoryAdd.php',[
+        $this->render('categoryAdd',[
             'errors'=>$errors,
         ]);
     }
@@ -121,7 +121,7 @@ class AdminController extends Controller
     {
         $post = $_POST;
         $this->index();
-        $this->render('admin/categoryEdit.php',[
+        $this->render('categoryEdit',[
             'data'=>$post,
             'errors'=>$errors,
         ]);
@@ -152,6 +152,10 @@ class AdminController extends Controller
         GoodsCategory::add($post);
         header("location: $_SERVER[HTTP_REFERER]");
         // $this->index($this->checkGet());
+    }
+    static protected function getControllerName()
+    {
+        return "admin";
     }
 
 }

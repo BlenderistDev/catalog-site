@@ -1,6 +1,6 @@
 <?php
 // точка входа Админа
-require_once('adminController.php');
+require_once('controller\adminController.php');
 
 $redirect = false;
 $controller = new AdminController();

@@ -1,6 +1,6 @@
 <?php
 // точка входа пользователя
-require_once('indexController.php');
+require_once('controller\indexController.php');
 
 $redirect = false;
 $controller = new IndexController();

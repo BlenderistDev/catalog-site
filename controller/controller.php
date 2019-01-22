@@ -10,10 +10,12 @@ abstract class Controller{
     //рендер страницы
     protected function render($file,$data = [])
     {
+        include_once("view\header.php");
         foreach ($data as $key =>$value){
             $$key = $value;
         }
-        include($file);
+        $folder = static::getControllerName();
+        include("view\\$folder\\$file.php");
     }
     //разбиение по страницам
     protected function getPagination($data,$count,$propName)
@@ -55,5 +57,6 @@ abstract class Controller{
         }
         return $get;
     }
+    abstract static protected function getControllerName();
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-require_once("catalog.php");
+require_once("model\catalog.php");
 
 class Goods extends Catalog{
     protected static function getTableName(){
