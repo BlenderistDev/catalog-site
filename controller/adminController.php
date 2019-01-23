@@ -2,6 +2,7 @@
 
 require_once("controller\controller.php");
 require_once("model\goods.php");
+require_once("model\goodsFilter.php");
 require_once("model\category.php");
 require_once("model\goodsCategory.php");
 require_once("helper\paginator.php");
@@ -11,17 +12,15 @@ class AdminController extends Controller
     public function index()
     {
         $get = self::getGet($_GET);
-        //данные по товарам
-        if ($get['active']==='true'){//проверяем условие о показе только активных товаров
-            $goodsData = Goods::getActiveData();
-        }else{
-            $goodsData = Goods::getData();
-        }
+
+        $goods = new goodsFilter(new Goods);
+        $goodsData = $goods->filter($get);
+        $goodsFilterForm = $goods->getFilters();
         $goodsData = new Paginator($goodsData,self::$goodsPagination);
         $goodsPageCount = $goodsData->getPageCount();
         $goodsData = $goodsData->getPage($get['goodsPage']);
         //данные по категориям
-        $categoryData = Category::getData();
+        $categoryData = (new Category)->getData();
         $categoryData = new Paginator($categoryData,self::$categoryPagination);
         $categoryPageCount = $categoryData->getPageCount();
         $categoryData = $categoryData->getPage($get['categoryPage']);
@@ -29,6 +28,7 @@ class AdminController extends Controller
         $this->render('index',[
             'goodsPageCount' => $goodsPageCount,
             'goodsData'=>$goodsData,
+            'goodsFilterForm' => $goodsFilterForm,
             'categoryPageCount' => $categoryPageCount,
             'categoryData'=>$categoryData,
         ]);
@@ -37,18 +37,18 @@ class AdminController extends Controller
             switch ($get['act']){
                 case 'showGood':
                     $id = $get['id'];
-                    $good = Goods::getInstanse($id);
-                    $categories = GoodsCategory::getCategories($id);
+                    $good = (new Goods)->getInstanse($id);
+                    $categories = (new GoodsCategory)->getCategories($id);
                     $this->render('showGood',[
                         'goodData' => $good,
                         'categories'=>$categories,
-                        'categoryList'=>Category::getList(),
+                        'categoryList'=>(new Category)->getList(),
                     ]);
                 break;
                 case 'showCategory':
                     $id = $get['id'];
-                    $category = Category::getInstanse($id);
-                    $goods = GoodsCategory::getGoods($id);
+                    $category = (new Category)->getInstanse($id);
+                    $goods = (new GoodsCategory)->getGoods($id);
                     $this->render('showCategory',[
                         'CategoryData' => $category,
                         'goods'=>$goods,
@@ -69,7 +69,7 @@ class AdminController extends Controller
     public function addNewGood()
     {
         $post = $_POST;
-        if($errors = Goods::add($post)){
+        if($errors = (new Goods)->add($post)){
             $this->addGoods($errors);
         }
         else{
@@ -90,7 +90,7 @@ class AdminController extends Controller
     public function EditGood()
     {
         $post = $_POST;
-        if($errors = Goods::edit($post)){
+        if($errors = (new Goods)->edit($post)){
             $this->editGoods($errors);
         }
         else{
@@ -109,7 +109,7 @@ class AdminController extends Controller
     public function addNewCategory()
     {
         $post = $_POST;
-        if($errors = Category::add($post)){
+        if($errors = (new Category)->add($post)){
             $this->addCategory($errors);
         }
         else{
@@ -130,7 +130,7 @@ class AdminController extends Controller
     public function EditCategory()
     {
         $post = $_POST;
-        if($errors = Category::edit($post)){
+        if($errors = (new Category)->edit($post)){
             $this->EditCategories($errors);
         }
         else{
@@ -141,7 +141,7 @@ class AdminController extends Controller
     public function delGoodCategory()
     {
         $post = $_POST;
-        GoodsCategory::del($post['good_id'],$post['category_id']);
+        (new GoodsCategory)->del($post['good_id'],$post['category_id']);
         header("location: $_SERVER[HTTP_REFERER]");
         // $this->index($this->checkGet());
     }
@@ -149,7 +149,7 @@ class AdminController extends Controller
     public function addCategory2Good()
     {
         $post = $_POST;
-        GoodsCategory::add($post);
+        (new GoodsCategory)->add($post);
         header("location: $_SERVER[HTTP_REFERER]");
         // $this->index($this->checkGet());
     }

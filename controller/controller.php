@@ -51,10 +51,6 @@ abstract class Controller{
         if (!isset($get[self::CATEGORY_PAGE_PROPERTY])){
             $get[self::CATEGORY_PAGE_PROPERTY] = 1;
         }
-        // по умолчанию показываем все товары
-        if (!isset($get['active'])){
-            $get['active'] = false;
-        }
         return $get;
     }
     abstract static protected function getControllerName();

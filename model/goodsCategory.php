@@ -6,47 +6,52 @@ require_once("model\dbTable.php");
 
 class GoodsCategory extends Table
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->tableName = "goods_category";
+    }
     //получение категорий по id товара
-    public static function getCategories($id)
+    public function getCategories($id)
     {
         $array=[];
-        $pdo = self::getPDO();
-        $tableName = static::getTableName();
+        $pdo = $this->PDO;
+        $tableName = $this->tableName;
         $query = "Select category_id From $tableName Where good_id = :id";
         $data = $pdo->prepare($query);
         $data->execute(['id'=>$id]);
         $data = $data->fetchAll(PDO::FETCH_ASSOC);
         foreach ($data as $value){
             $array[]=[
-                'name' => Category::getInstanse($value['category_id'])['name'],
+                'name' => (new Category)->getInstanse($value['category_id'])['name'],
                 'id' => $value['category_id'],
             ];
         }
         return $array;
     }
     //получение товаров по id категории
-    public static function getGoods($id)
+    public function getGoods($id)
     {
         $array=[];
-        $pdo = self::getPDO();
-        $tableName = static::getTableName();
+        $pdo = $this->PDO;
+        $tableName = $this->tableName;
         $query = "Select good_id From $tableName Where category_id = :id";
         $data = $pdo->prepare($query);
         $data->execute(['id'=>$id]);
         $data = $data->fetchAll(PDO::FETCH_ASSOC);
         foreach ($data as $value){
             $array[]=[
-                'name' => Goods::getInstanse($value['good_id'])['name'],
+                'name' => (new Goods)->getInstanse($value['good_id'])['name'],
                 'id' => $value['good_id'],
             ];
         }
         return $array;
     }
     // удаление записи
-    public static function del($good_id,$category_id)
+    public function del($good_id,$category_id)
     {
-        $pdo = self::getPDO();
-        $tableName = static::getTableName();
+        $pdo = $this->PDO;
+        $tableName = $this->tableName;
         $query = "DELETE From $tableName Where good_id = :good_id and category_id = :category_id";
         $del = $pdo->prepare($query);
         $del->execute([
@@ -55,13 +60,13 @@ class GoodsCategory extends Table
         ]);
     }
     // добавление записи
-    public static function add($data)
+    public function add($data)
     {
-        if (!self::validate($data)){
+        if (!$this->validate($data)){
             return;
         }
-        $pdo = self::getPDO();
-        $tableName = static::getTableName();
+        $pdo = $this->PDO;
+        $tableName = $this->tableName;
         $query = "INSERT into $tableName Values (:good_id,:category_id)";
         $del = $pdo->prepare($query);
         $del->execute([
@@ -70,18 +75,18 @@ class GoodsCategory extends Table
         ]);
     }
     // имя таблицы
-    protected static function getTableName(){
-        return "goods_category";
+    protected function getTableName(){
+        return $this->tableName;
     }
     // валидация
-    protected static function validate($data){
+    protected function validate($data){
         foreach ($data as $key => &$value){
             $value = trim($value);
         }
-        if (Goods::getInstanse($data['good_id'])==false){
+        if ((new Goods)->getInstanse($data['good_id'])==false){
             return false;
         }
-        if (Category::getInstanse($data['category_id'])==false){
+        if ((new Category)->getInstanse($data['category_id'])==false){
             return false;
         }
         return true;

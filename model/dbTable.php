@@ -4,19 +4,23 @@ require_once("model\database.php");
 // верхний уровень абстракции таблиц в базе данных
 abstract class Table
 {
+    protected $PDO;
+    public function __construct(){
+        $this->PDO = Database::getPDO();
+    }
     //получение объекта доступа к бд
-    protected static function getPDO(){
-        return Database::getPDO();
+    protected function getPDO(){
+        return $this->PDO;
     }
     // получаем данные таблицы
-    public static function getData()
+    public function getData()
     {
-        $pdo = self::getPDO();
-        $tableName = static::getTableName();
+        $pdo = $this->getPDO();
+        $tableName = $this->getTableName();
         $query = "Select * From $tableName";
         $data = $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     } 
-    abstract protected static function getTableName();
-    abstract protected static function validate($data);
+    abstract protected function getTableName();
+    abstract protected function validate($data);
 }

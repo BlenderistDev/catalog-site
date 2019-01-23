@@ -3,17 +3,25 @@
 require_once("model\catalog.php");
 
 class Goods extends Catalog{
-    protected static function getTableName(){
-        return "goods";
+    protected $tableName;
+
+    public function __construct(){
+        parent::__construct();
+        $this->tableName = "goods";
+    }
+    protected function getTableName()
+    {
+        return $this->tableName;
     }
     // добавление в таблицу
-    public static function add($post){
-        list($post,$errors)=self::validate($post);
+    public function add($post)
+    {
+        list($post,$errors)=$this->validate($post);
         if ($errors!==[]){
             return $errors;
         }
         $query= "INSERT INTO goods VALUES (NULL, :name, :summary, :fullSummary, :activity, :amount, :booking)"; 
-        $add = self::getPDO()->prepare($query);
+        $add = $this->PDO->prepare($query);
         $add->execute([
             'name' => $post['name'],
             'summary'=>$post['summary'],
@@ -25,14 +33,15 @@ class Goods extends Catalog{
         return false;
     }
     // изменение елемента таблицы
-    public static function edit($post){
+    public function edit($post)
+    {
         $id = $post['id'];
-        list($post,$errors)=self::validate($post);
+        list($post,$errors)=$this->validate($post);
         if ($errors!==[]){
             return $errors;
         }
         $query ="Update goods set name = :name,summary = :summary,fullSummary = :fullSummary, activity = :activity,amount = :amount,booking = :booking WHERE id = :id";
-        $edit = self::getPDO()->prepare($query);
+        $edit = $this->PDO->prepare($query);
         $edit->execute([
             'id' => $id,
             'name' => $post['name'],
@@ -45,7 +54,8 @@ class Goods extends Catalog{
         return false;
     }
     // валидация
-    protected static function validate($post){
+    protected function validate($post)
+    {
         $errors =[];
         $args = [
             'name'=>FILTER_SANITIZE_STRING,
@@ -73,6 +83,30 @@ class Goods extends Catalog{
         }
         return [$post,$errors];
     }
+    // public static function getFilterData($filters)
+    // {
+    //     // фильтруем по количеству
+    //     if(!isset($filter['amoutStart'])){
+    //         $filter['amoutStart'] = 0;
+    //     }
+    //     if(!isset($filter['amoutEnd'])){
+    //         $filter['amoutEnd'] = null;
+    //     }
+
+    //     // фильтруем по количеству
+    //     if(!isset($filter['booking'])){
+    //         $filter['booking'] = null;
+    //     }
+    //     elseif($filter['booking']>1){
+    //         $filter['booking'] = 1;
+    //     }
+
+    //     if (!isset($filter['name'])){
+    //         $filter['name'] = null;
+    //     }
+
+    //     if (!isset($filter['']))
+    // }
 
 
 

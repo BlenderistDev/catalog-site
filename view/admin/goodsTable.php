@@ -28,4 +28,18 @@ _HTML_;
 }
 print "</table> $foot 
     <form method=\"get\" action =\"admin.php\"><button name = \"active\" value = \"true\">Только активные</button><button name = \"active\" value = \"false\">все</button></form>
+    <form method=\"get\" action=\"admin.php\">
+    Имя: <input type =\"text\" name = \"name\" value =\"$goodsFilterForm[name]\"><br>
+    Количество: от <input type= \"text\" name =\"amountStart\" value =\"$goodsFilterForm[amountStart]\"> до <input type=\"text\" name =\"amountEnd\" value =\"$goodsFilterForm[amountEnd]\"><br>
+    Активность: <input type = \"checkbox\" name = \"activity\" value =\"$goodsFilterForm[activity]\"><br>
+    Заказ: <input type = \"checkbox\" name = \"booking\" value =\"$goodsFilterForm[booking]\"><br>
+    <input type = \"submit\" value = \"применить\">
+    </form>
+    <form method=\"get\" action=\"admin.php\">
+    <input type = \"submit\" value = \"сбросить\">
+    <input type =\"hidden\" name = \"name\"><br>
+    <input type= \"hidden\" name =\"amountStart\"><input type=\"hidden\" name =\"amountEnd\"><br>
+    <input type = \"hidden\" name = \"activity\" value = \"0\"><br>
+    <input type = \"hidden\" name = \"booking\" value = \"0\"><br>
+    </form>
     </span>";

@@ -2,17 +2,23 @@
 
 class Category extends Catalog
 {
-    protected static function getTableName(){
-        return "category";
+    protected $tableName;
+
+    public function __construct(){
+        parent::__construct();
+        $this->tableName = "category";
+    }
+    protected function getTableName(){
+        return $this->tableName;
     }
     // добавление в таблицу
-    public static function add($post){
-        list($post,$errors)=self::validate($post);
+    public function add($post){
+        list($post,$errors)=$this->validate($post);
         if ($errors!==[]){
             return $errors;
         }
         $query= "INSERT INTO category VALUES (NULL, :name, :summary, :fullSummary, :activity)"; 
-        $add = self::getPDO()->prepare($query);
+        $add = $this->PDO->prepare($query);
         $add->execute([
             'name' => $post['name'],
             'summary'=>$post['summary'],
@@ -22,14 +28,14 @@ class Category extends Catalog
         return false;
     }
     // изменение елемента таблицы
-    public static function edit($post){
+    public function edit($post){
         $id = $post['id'];
-        list($post,$errors)=self::validate($post);
+        list($post,$errors)=$this->validate($post);
         if ($errors!==[]){
             return $errors;
         }
         $query ="Update category set name = :name,summary = :summary,fullSummary = :fullSummary, activity = :activity WHERE id = :id";
-        $edit = self::getPDO()->prepare($query);
+        $edit = $this->PDO->prepare($query);
         $edit->execute([
             'id' => $id,
             'name' => $post['name'],
@@ -40,7 +46,7 @@ class Category extends Catalog
         return false;
     }
     // валидация
-    protected static function validate($post){
+    protected function validate($post){
         $errors =[];
         $args = [
             'name'=>FILTER_SANITIZE_STRING,

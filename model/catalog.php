@@ -4,21 +4,24 @@ require_once("model\dbTable.php");
 // абстракция для таблиц - каталогов
 abstract class Catalog extends Table
 {
+    public function __construct(){
+        parent::__construct();
+    }
     // получаем только активные данные
-    public static function getActiveData()
+    public function getActiveData()
     {
-        $pdo = self::getPDO();
-        $tableName = static::getTableName();
+        $pdo = $this->PDO;
+        $tableName = $this->tableName;
         $query = "Select * From $tableName Where activity > 0";
         $data = $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     } 
     // получаем список елементов таблицы
-    public static function getList()
+    public function getList()
     {
         $list = [];
-        $pdo = self::getPDO();
-        $tableName = static::getTableName();
+        $pdo = $this->PDO;
+        $tableName = $this->tableName;
         $query = "Select * From $tableName";
         $data = $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
         foreach($data as $value){
@@ -30,14 +33,15 @@ abstract class Catalog extends Table
         return $list;
     } 
     // получаем елемент таблицы по id
-    public static function getInstanse($id){
-        $pdo = self::getPDO();
-        $tableName = static::getTableName();
+    public function getInstanse($id){
+        $pdo = $this->PDO;
+        $tableName = $this->tableName;
         $query = "Select * From $tableName Where id = :id";
         $data = $pdo->prepare($query);
         $data->execute(['id'=>$id]);
         return $data->fetch(PDO::FETCH_ASSOC);
     }
-    abstract public static function add($post);
-    abstract public static function edit($post);
+    abstract public function add($post);
+    abstract public function edit($post);
+    
 }

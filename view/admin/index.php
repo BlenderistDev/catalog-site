@@ -7,6 +7,7 @@
 $this->render('goodsTable',[
     'goodsData'=>$goodsData,
     'goodsPageCount' => $goodsPageCount,
+    'goodsFilterForm' => $goodsFilterForm,
 ]);
 ?>
 <!-- таблица категорий -->
